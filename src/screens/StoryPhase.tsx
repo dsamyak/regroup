@@ -50,7 +50,7 @@ interface Props {
   audioEnabled: boolean;
 }
 
-export default function StoryPhase({ onComplete }: Props) {
+export default function StoryPhase({ onComplete, audioEnabled }: Props) {
   const [slide, setSlide] = useState(0);
   const [anim, setAnim] = useState(false);
   const [textVis, setTextVis] = useState(false);
@@ -61,10 +61,17 @@ export default function StoryPhase({ onComplete }: Props) {
 
   useEffect(() => {
     setTextVis(false); setHlVis(false);
-    const t1 = setTimeout(() => setTextVis(true), 100);
+    const t1 = setTimeout(() => {
+      setTextVis(true);
+      if (audioEnabled) {
+        import('../utils/narration').then(m => {
+          m.playStoryNarration(s.text, s.highlight);
+        });
+      }
+    }, 100);
     const t2 = setTimeout(() => setHlVis(true), 800);
     return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, [slide]);
+  }, [slide, audioEnabled, s]);
 
   const goNext = useCallback(() => {
     if (anim) return;

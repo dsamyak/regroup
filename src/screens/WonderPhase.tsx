@@ -38,7 +38,7 @@ interface Props {
   audioEnabled: boolean;
 }
 
-export default function WonderPhase({ onComplete }: Props) {
+export default function WonderPhase({ onComplete, audioEnabled }: Props) {
   const [wonder] = useState(() => WONDER_QUESTIONS[Math.floor(Math.random() * WONDER_QUESTIONS.length)]);
   const [stage, setStage] = useState(0);
   const [particles, setParticles] = useState<Array<{ id: number; emoji: string; x: number; y: number; delay: number; duration: number; size: number }>>([]);
@@ -57,10 +57,17 @@ export default function WonderPhase({ onComplete }: Props) {
   }, [wonder]);
 
   useEffect(() => {
-    const t1 = setTimeout(() => setStage(1), 300);
+    const t1 = setTimeout(() => {
+      setStage(1);
+      if (audioEnabled) {
+        import('../utils/narration').then(m => {
+          m.playWonderNarration(wonder.question, wonder.subtext);
+        });
+      }
+    }, 300);
     const t2 = setTimeout(() => setStage(2), 1200);
     return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, []);
+  }, [audioEnabled, wonder]);
 
   const handleDiscover = () => {
     setTimeout(() => onComplete(), 600);

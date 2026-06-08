@@ -14,10 +14,14 @@ interface Props {
   onToggleAudio: () => void;
 }
 
-export default function IntroScreen({ onStart }: Props) {
+export default function IntroScreen({ onStart, audioEnabled }: Props) {
   useEffect(() => {
-    // Could add intro narration here
-  }, []);
+    if (audioEnabled) {
+      import('../utils/narration').then(m => {
+        m.playIntroNarration();
+      });
+    }
+  }, [audioEnabled]);
 
   return (
     <div className="intro-screen">

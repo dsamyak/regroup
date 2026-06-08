@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import { stopNarration } from './utils/audio';
+import { stopNarration, initAudioEngine } from './utils/audio';
 import FloatingNumbers from './components/ui/FloatingNumbers';
 import IntroScreen from './screens/IntroScreen';
 import WonderPhase from './screens/WonderPhase';
@@ -23,10 +23,16 @@ export default function App() {
   const [playStats, setPlayStats] = useState<any>(null);
 
   const toggleAudio = useCallback(() => {
+    initAudioEngine();
     setAudioEnabled(prev => {
       if (prev) stopNarration();
       return !prev;
     });
+  }, []);
+
+  const handleStart = useCallback(() => {
+    initAudioEngine();
+    setPhase('wonder');
   }, []);
 
   const goHome = useCallback(() => {
@@ -36,6 +42,7 @@ export default function App() {
   }, []);
 
   const restart = useCallback(() => {
+    initAudioEngine();
     stopNarration();
     setPhase('wonder');
     setPlayStats(null);
@@ -89,7 +96,7 @@ export default function App() {
         {/* Phase Content */}
         {phase === 'intro' && (
           <IntroScreen
-            onStart={() => setPhase('wonder')}
+            onStart={handleStart}
             audioEnabled={audioEnabled}
             onToggleAudio={toggleAudio}
           />

@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 const COUNT = 20;
 export default function FloatingNumbers() {
   const numbers = useMemo(() =>
-    Array.from({ length: COUNT }, (_, i) => ({
+    Array.from({ length: COUNT }, () => ({
       value: Math.floor(Math.random() * 100),
       left: `${Math.random() * 100}%`,
       delay: `${Math.random() * 20}s`,
