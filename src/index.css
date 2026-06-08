@@ -202,22 +202,24 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 .wonder-question-text { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; line-height: 1.6; margin-bottom: 16px; text-shadow: var(--shadow-text); }
 .wonder-subtext { color: var(--text-secondary); font-size: 1.1rem; font-weight: 600; font-style: italic; line-height: 1.6; }
 .btn-wonder { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; padding: 18px 40px; font-size: 1.2rem; border-radius: var(--radius-full); opacity: 0; transform: translateY(20px); transition: all 0.5s ease; position: relative; overflow: hidden; }
+.wonder-subtext { color: var(--text-secondary); font-size: 1.1rem; font-weight: 600; font-style: italic; line-height: 1.6; }
+.btn-wonder { background: linear-gradient(135deg, #6366f1, #8b5cf6); color: white; padding: 18px 40px; font-size: 1.2rem; border-radius: var(--radius-full); opacity: 0; transform: translateY(20px); transition: all 0.5s ease; position: relative; overflow: hidden; }
 .btn-wonder.visible { opacity: 1; transform: translateY(0); }
 .btn-wonder:hover { background: linear-gradient(135deg, #4f46e5, #7c3aed); transform: translateY(-3px) !important; box-shadow: 0 8px 30px rgba(99,102,241,0.4); }
 .wonder-btn-sparkle { animation: twinkle 1.5s infinite; }
 
 /* ===== STORY PHASE ===== */
 .story-phase { display: flex; flex-direction: column; align-items: center; padding: 80px 24px 40px; min-height: 100vh; gap: 20px; width: 100%; }
-.story-progress { width: 100%; max-width: 650px; display: flex; align-items: center; gap: 12px; }
+.story-progress { width: 100%; max-width: 850px; display: flex; align-items: center; gap: 12px; }
 .story-progress-bar { flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: var(--radius-full); overflow: hidden; }
 .story-progress-fill { height: 100%; background: linear-gradient(90deg, #8b5cf6, var(--gold)); border-radius: var(--radius-full); transition: width 0.5s ease; }
 .story-progress-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; white-space: nowrap; }
-.story-card { background: var(--bg-card); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-xl); overflow: hidden; max-width: 650px; width: 100%; box-shadow: var(--shadow-card); transition: var(--transition); }
+.story-card { background: var(--bg-card); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-xl); overflow: hidden; max-width: 850px; width: 100%; box-shadow: var(--shadow-card); transition: var(--transition); display: flex; flex-direction: row; }
 .story-card.flipping { opacity: 0.5; transform: scale(0.98); }
-.story-image-section { position: relative; width: 100%; height: 240px; overflow: hidden; }
+.story-image-section { position: relative; width: 45%; flex-shrink: 0; min-height: 400px; overflow: hidden; display: flex; }
 .story-image { width: 100%; height: 100%; object-fit: cover; }
-.story-image-overlay { position: absolute; bottom: 0; left: 0; right: 0; height: 60px; background: linear-gradient(transparent, rgba(30,30,100,0.9)); }
-.story-text-section { padding: 24px 28px; }
+.story-image-overlay { position: absolute; inset: 0; background: linear-gradient(to right, transparent 60%, rgba(30,30,100,0.9) 100%); }
+.story-text-section { padding: 32px 40px; width: 55%; display: flex; flex-direction: column; justify-content: center; }
 .story-title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--gold); margin-bottom: 14px; text-shadow: var(--shadow-text-glow); letter-spacing: 0.02em; }
 .story-text { color: var(--text-secondary); line-height: 1.8; font-size: 1.1rem; font-weight: 600; opacity: 0; transform: translateY(10px); transition: all 0.5s ease; }
 .story-text.revealed { opacity: 1; transform: translateY(0); }
@@ -225,7 +227,7 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
 .story-highlight.visible { opacity: 1; transform: scale(1); }
 .story-highlight-text { font-family: var(--font-display); font-size: 1.25rem; font-weight: 800; color: var(--gold); text-shadow: var(--shadow-text-glow); letter-spacing: 0.02em; }
 .story-mascot { display: flex; align-items: center; gap: 12px; margin-top: 12px; }
-.story-nav { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 650px; }
+.story-nav { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 850px; }
 .story-dots { display: flex; gap: 8px; }
 .story-dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,0.2); transition: var(--transition); }
 .story-dot.active { background: var(--gold); box-shadow: 0 0 8px rgba(255,193,7,0.4); }
@@ -378,7 +380,11 @@ body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; 
   .journey-bar { padding: 8px 12px; }
   .journey-step-label { display: none; }
   .journey-connector { width: 12px; }
-  .story-image-section { height: 180px; }
+  .story-card { flex-direction: column; max-width: 650px; }
+  .story-image-section { width: 100%; min-height: 200px; height: 240px; }
+  .story-text-section { width: 100%; padding: 24px 28px; }
+  .story-image-overlay { background: linear-gradient(transparent, rgba(30,30,100,0.9)); }
+  .story-progress, .story-nav { max-width: 650px; }
   .intro-journey-steps { flex-direction: column; gap: 8px; }
   .intro-journey-arrow { transform: rotate(90deg); }
   .wonder-qmark { width: 100px; height: 100px; }
